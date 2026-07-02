@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clases de piano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --nearblack: #18130D;
+  --ink:       #231C14;
+  --ivory:     #F1E9D8;
+  --ivory-dim: #cfc6b4;
+  --brass:     #A8772E;
+  --brass-dim: #7a5a22;
+  --wine:      #6E2335;
+  --hairline:  rgba(255,255,255,0.10);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--nearblack);
+  color: var(--ivory);
+  font-family: 'Work Sans', sans-serif;
+  min-height: 100vh;
+  padding: 0 16px 80px;
+}
+
+/* ── centered column ── */
+.col {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── header ── */
+.header {
+  padding: 64px 0 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.header-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.header-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 8vw, 64px);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--ivory);
+  margin-bottom: 6px;
+}
+
+.header-name em {
+  color: var(--brass);
+  font-style: italic;
+}
+
+.header-sub {
+  font-size: 15px;
+  color: var(--ivory-dim);
+  margin-top: 14px;
+  line-height: 1.55;
+}
+
+/* ── staff divider ── */
+.staff-divider {
+  margin: 36px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.staff-divider::before,
+.staff-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+.staff-divider-symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--brass);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* ── section label ── */
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ── spotify card ── */
+.spotify-card {
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  text-decoration: none;
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+.spotify-card:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+.spotify-badge {
+  background: #1DB954;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+.spotify-badge svg { width: 22px; height: 22px; fill: #000; }
+.spotify-info {
+  padding: 16px 18px;
+  flex: 1;
+  min-width: 0;
+}
+.spotify-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ivory);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spotify-meta {
+  font-size: 12px;
+  color: var(--ivory-dim);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.spotify-arrow {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  color: var(--ivory-dim);
+  font-size: 18px;
+}
+
+/* ── pdf card ── */
+.pdf-card {
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+  text-decoration: none;
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.pdf-card:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+.pdf-badge {
+  background: var(--brass);
+  width: 6px;
+  flex-shrink: 0;
+}
+.pdf-badge.wine { background: var(--wine); }
+.pdf-info {
+  padding: 16px 18px;
+  flex: 1;
+}
+.pdf-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.pdf-badge.wine ~ .pdf-info .pdf-eyebrow { color: #b07080; }
+.pdf-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ivory);
+  line-height: 1.25;
+}
+.pdf-desc {
+  font-size: 12px;
+  color: var(--ivory-dim);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.pdf-arrow {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  color: var(--ivory-dim);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ── instagram CTA ── */
+.ig-card {
+  margin-top: 8px;
+  border: 1px solid var(--brass);
+  border-radius: 8px;
+  padding: 24px 22px;
+  text-align: center;
+}
+.ig-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--brass);
+  margin-bottom: 8px;
+}
+.ig-sub {
+  font-size: 14px;
+  color: var(--ivory-dim);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.ig-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+}
+.ig-btn:hover {
+  background: var(--brass);
+  color: var(--nearblack);
+}
+.ig-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+/* ── footer ── */
+.footer {
+  margin-top: 56px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── micro piano keys decoration ── */
+.keys-deco {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0 0;
+}
+.keys-deco svg {
+  opacity: 0.18;
+}
+</style>
+</head>
+<body>
+<div class="col">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-eyebrow">Piano · Armonía · Análisis</div>
+    <h1 class="header-name">Rodrigo<br><em>Zamora</em></h1>
+    
+    <p class="header-sub">
+      Pianista intérprete · Profesor de piano<br>
+      Clases presenciales y en línea
+    </p>
+
+    <!-- mini piano keys -->
+    <div class="keys-deco">
+      <svg width="200" height="36" viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- white keys -->
+        <rect x="1"   y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="20"  y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="39"  y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="58"  y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="77"  y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="96"  y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="115" y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="134" y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="153" y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <rect x="172" y="0" width="18" height="36" fill="none" stroke="#F1E9D8" stroke-width="0.8"/>
+        <!-- black keys -->
+        <rect x="14"  y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="33"  y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="71"  y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="90"  y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="109" y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="147" y="0" width="11" height="22" fill="#F1E9D8"/>
+        <rect x="166" y="0" width="11" height="22" fill="#F1E9D8"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- SPOTIFY -->
+  <div style="margin-top: 44px;">
+    <div class="section-label">Escúchame tocar</div>
+
+    <a class="spotify-card"
+       href="https://open.spotify.com/intl-es/track/4junXFVUKdaHyWXMRMWgH4"
+       target="_blank" rel="noopener">
+      <div class="spotify-badge">
+        <!-- Spotify icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>
+      </div>
+      <div class="spotify-info">
+        <div class="spotify-title">Nocturno póstumo en Do&#9839; menor</div>
+        <div class="spotify-meta">Frédéric Chopin · Spotify</div>
+      </div>
+      <div class="spotify-arrow">↗</div>
+    </a>
+  </div>
+
+  <div class="staff-divider">
+    <span class="staff-divider-symbol">I &nbsp;–&nbsp; V7 &nbsp;–&nbsp; I</span>
+  </div>
+
+  <!-- PDFs -->
+  <div>
+    <div class="section-label">Guías gratuitas</div>
+
+    <!-- PDF 1 -->
+    <a class="pdf-card" href="la_danza_armonica.pdf" download="La_danza_armonica_Rodrigo_Zamora.pdf" target="_blank" rel="noopener">
+      <!-- ↑ Reemplaza TU_LINK_PDF_1_AQUÍ con el link real de Google Drive -->
+      <div class="pdf-badge"></div>
+      <div class="pdf-info">
+        <div class="pdf-eyebrow">Guía · Teoría al piano</div>
+        <div class="pdf-title">La danza armónica</div>
+        <div class="pdf-desc">Los 5 acordes fundamentales y cómo interactúan en el Nocturno de Chopin.</div>
+      </div>
+      <div class="pdf-arrow">↓</div>
+    </a>
+
+    <!-- PDF 2 — placeholder para el próximo -->
+    <a class="pdf-card" href="TU_LINK_PDF_2_AQUÍ" target="_blank" rel="noopener"
+       style="opacity: 0.45; pointer-events: none; cursor: default;">
+      <div class="pdf-badge wine"></div>
+      <div class="pdf-info">
+        <div class="pdf-eyebrow">Próximamente</div>
+        <div class="pdf-title">Segunda guía</div>
+        <div class="pdf-desc">Próxima guía — en preparación.</div>
+      </div>
+      <div class="pdf-arrow">↓</div>
+    </a>
+
+    <!-- PDF 3 — placeholder -->
+    <a class="pdf-card" href="TU_LINK_PDF_3_AQUÍ" target="_blank" rel="noopener"
+       style="opacity: 0.45; pointer-events: none; cursor: default;">
+      <div class="pdf-badge wine"></div>
+      <div class="pdf-info">
+        <div class="pdf-eyebrow">Próximamente</div>
+        <div class="pdf-title">Tercera guía</div>
+        <div class="pdf-desc">Próxima guía — en preparación.</div>
+      </div>
+      <div class="pdf-arrow">↓</div>
+    </a>
+  </div>
+
+  <div class="staff-divider">
+    <span class="staff-divider-symbol">N6 &nbsp;–&nbsp; +6</span>
+  </div>
+
+  <!-- INSTAGRAM CTA -->
+  <div class="ig-card">
+    <div class="ig-headline">Agenda una clase muestra</div>
+    <p class="ig-sub">
+      Clases de piano individuales — presenciales y en línea.<br>
+      Escríbeme por Instagram y apartamos un horario.
+    </p>
+    <a class="ig-btn" href="https://instagram.com/rodrigozamora.clasesdepiano" target="_blank" rel="noopener">
+
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+      Escribir por Instagram
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Clases de piano · Armonía · Análisis</p>
+  </footer>
+
+</div>
+</body>
+</html>
